@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assignment — Employee Task Manager</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       Sidebar Overlay (mobile)
+  ============================================================ -->
+  <div id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       Sidebar
+  ============================================================ -->
+  <aside id="sidebar" role="navigation" aria-label="Navigasi utama">
+
+    <!-- Logo / Brand -->
+    <div class="flex items-center gap-3 px-4 py-5 border-b border-slate-700">
+      <div class="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center flex-shrink-0">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+      </div>
+      <span class="logo-text text-white font-bold text-sm leading-tight">
+        Task<br>Manager
+      </span>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex-1 py-4">
+      <a href="index.html" class="nav-item" data-page="index.html">
+        <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        <span class="nav-label text-sm">Dashboard</span>
+      </a>
+
+      <a href="assignment.html" class="nav-item" data-page="assignment.html">
+        <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+        </svg>
+        <span class="nav-label text-sm">Assignment</span>
+      </a>
+
+      <a href="ranking.html" class="nav-item" data-page="ranking.html">
+        <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <span class="nav-label text-sm">Ranking</span>
+      </a>
+    </nav>
+
+    <!-- User profile at bottom -->
+    <div class="border-t border-slate-700 px-4 py-4 flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-cyan-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">AF</div>
+      <div class="nav-label min-w-0">
+        <p class="text-white text-xs font-semibold truncate">Muhammad Faiz</p>
+        <p class="text-slate-400 text-xs truncate">Frontend Engineer</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       Main Content
+  ============================================================ -->
+  <div id="main-content">
+
+    <!-- ---- Topbar ---- -->
+    <header id="topbar">
+      <button
+        id="sidebar-toggle"
+        class="p-2 rounded-lg hover:bg-slate-100 transition-colors"
+        aria-label="Toggle sidebar"
+      >
+        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
+      <div class="flex-1">
+        <h1 class="text-base font-semibold text-slate-800">Assignment</h1>
+        <p class="text-xs text-slate-400">Kelola dan pantau semua tugas Anda</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="hidden sm:block text-xs text-slate-400" id="current-date"></span>
+        <button class="relative p-2 rounded-lg hover:bg-slate-100 transition-colors" aria-label="Notifikasi">
+          <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+          </svg>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ---- Page body ---- -->
+    <main class="p-6 flex-1">
+
+      <!-- Controls: Search + Filter + Sort -->
+      <section
+        class="bg-white rounded-xl border border-slate-200 p-4 mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap"
+        aria-label="Pencarian dan filter tugas"
+      >
+        <!-- Search -->
+        <div class="relative flex-1 min-w-[200px]">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/>
+          </svg>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Cari tugas..."
+            class="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent bg-slate-50"
+            aria-label="Cari tugas"
+          />
+        </div>
+
+        <!-- Status filter -->
+        <select
+          id="filter-status"
+          class="text-sm border border-slate-200 rounded-lg px-3 py-2 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-slate-600"
+          aria-label="Filter status"
+        >
+          <option value="all">Semua Status</option>
+          <option value="todo">To-Do</option>
+          <option value="review">Waiting Review</option>
+          <option value="approved">Approved</option>
+          <option value="revision">Revision</option>
+        </select>
+
+        <!-- Priority filter -->
+        <select
+          id="filter-priority"
+          class="text-sm border border-slate-200 rounded-lg px-3 py-2 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-slate-600"
+          aria-label="Filter prioritas"
+        >
+          <option value="all">Semua Prioritas</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+
+        <!-- Sort buttons -->
+        <div class="flex gap-2">
+          <button
+            class="sort-btn px-3 py-2 rounded-lg text-xs font-medium transition-all bg-cyan-500 text-white"
+            data-sort="deadline-asc"
+            aria-label="Urutkan deadline terlama ke terbaru"
+          >
+            Deadline ↑
+          </button>
+          <button
+            class="sort-btn px-3 py-2 rounded-lg text-xs font-medium transition-all bg-white text-slate-600 border border-slate-200"
+            data-sort="deadline-desc"
+            aria-label="Urutkan deadline terbaru ke terlama"
+          >
+            Deadline ↓
+          </button>
+        </div>
+      </section>
+
+      <!-- Task count -->
+      <p id="task-count" class="text-xs text-slate-400 mb-4"></p>
+
+      <!-- Task Cards Grid -->
+      <section
+        id="task-grid"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+        aria-label="Daftar tugas"
+      >
+        <!-- Rendered by assignment.js -->
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-400 py-4 border-t border-slate-200">
+      © 2026 Employee Task Manager — Engineering Division
+    </footer>
+
+  </div><!-- end main-content -->
+
+  <!-- ============================================================
+       Task Detail Modal
+  ============================================================ -->
+  <div
+    id="task-modal"
+    class="hidden fixed inset-0 bg-black/50 z-50 items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+  >
+    <div
+      class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6"
+      id="modal-content"
+    >
+      <!-- Dynamically rendered by assignment.js -->
+    </div>
+  </div>
+
+  <!-- Scripts: app.js first, then dashboard.js for TASK_DATA, then assignment.js -->
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/assignment.js"></script>
+  <script>
+    document.getElementById('current-date').textContent =
+      new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  </script>
+
+</body>
+</html>

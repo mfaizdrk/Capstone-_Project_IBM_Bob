@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ranking — Employee Task Manager</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       Sidebar Overlay (mobile)
+  ============================================================ -->
+  <div id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       Sidebar
+  ============================================================ -->
+  <aside id="sidebar" role="navigation" aria-label="Navigasi utama">
+
+    <!-- Logo / Brand -->
+    <div class="flex items-center gap-3 px-4 py-5 border-b border-slate-700">
+      <div class="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center flex-shrink-0">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+      </div>
+      <span class="logo-text text-white font-bold text-sm leading-tight">
+        Task<br>Manager
+      </span>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex-1 py-4">
+      <a href="index.html" class="nav-item" data-page="index.html">
+        <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        <span class="nav-label text-sm">Dashboard</span>
+      </a>
+
+      <a href="assignment.html" class="nav-item" data-page="assignment.html">
+        <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+        </svg>
+        <span class="nav-label text-sm">Assignment</span>
+      </a>
+
+      <a href="ranking.html" class="nav-item" data-page="ranking.html">
+        <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <span class="nav-label text-sm">Ranking</span>
+      </a>
+    </nav>
+
+    <!-- User profile at bottom -->
+    <div class="border-t border-slate-700 px-4 py-4 flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-cyan-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">AF</div>
+      <div class="nav-label min-w-0">
+        <p class="text-white text-xs font-semibold truncate">Muhammad Faiz</p>
+        <p class="text-slate-400 text-xs truncate">Frontend Engineer</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       Main Content
+  ============================================================ -->
+  <div id="main-content">
+
+    <!-- ---- Topbar ---- -->
+    <header id="topbar">
+      <button
+        id="sidebar-toggle"
+        class="p-2 rounded-lg hover:bg-slate-100 transition-colors"
+        aria-label="Toggle sidebar"
+      >
+        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
+      <div class="flex-1">
+        <h1 class="text-base font-semibold text-slate-800">Ranking</h1>
+        <p class="text-xs text-slate-400">Papan peringkat Divisi Engineering</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="hidden sm:block text-xs text-slate-400" id="current-date"></span>
+        <button class="relative p-2 rounded-lg hover:bg-slate-100 transition-colors" aria-label="Notifikasi">
+          <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+          </svg>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ---- Page body ---- -->
+    <main class="p-6 flex-1">
+
+      <!-- Division header banner -->
+      <div class="bg-gradient-to-r from-slate-800 to-slate-700 rounded-2xl p-6 mb-8 flex items-center justify-between flex-wrap gap-4">
+        <div>
+          <p class="text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-1">Divisi Engineering</p>
+          <h2 class="text-white text-xl font-bold">Papan Peringkat</h2>
+          <p class="text-slate-400 text-sm mt-1">Berdasarkan total XP yang terkumpul</p>
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="text-center">
+            <p class="text-2xl font-black text-white">10</p>
+            <p class="text-xs text-slate-400">Anggota</p>
+          </div>
+          <div class="text-center">
+            <p class="text-2xl font-black text-cyan-400">160</p>
+            <p class="text-xs text-slate-400">Total Tugas</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top 3 Podium -->
+      <section class="mb-10" aria-label="Top 3 karyawan">
+        <h2 class="text-sm font-semibold text-slate-600 mb-5 flex items-center gap-2">
+          <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 1l3.09 6.26L22 8.27l-5 4.87 1.18 6.88L12 17l-6.18 3.02L7 13.14 2 8.27l6.91-1.01L12 1z"/>
+          </svg>
+          Top 3 Employee
+        </h2>
+
+        <!-- Podium: rendered by ranking.js (order: 2nd, 1st, 3rd) -->
+        <div
+          id="podium"
+          class="flex items-end justify-center gap-4 flex-wrap"
+          role="list"
+          aria-label="Podium top 3"
+        >
+          <!-- Rendered by ranking.js -->
+        </div>
+      </section>
+
+      <!-- Full Leaderboard -->
+      <section aria-label="Leaderboard lengkap">
+        <h2 class="text-sm font-semibold text-slate-600 mb-4 flex items-center gap-2">
+          <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+          </svg>
+          Leaderboard Lengkap
+        </h2>
+
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm" aria-label="Tabel ranking karyawan">
+              <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                  <th class="text-center py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider w-12">#</th>
+                  <th class="text-left py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Karyawan</th>
+                  <th class="text-left py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">XP</th>
+                  <th class="text-center py-3 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Tugas Selesai</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-body">
+                <!-- Rendered by ranking.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- My Position Banner -->
+      <section class="mt-6" aria-label="Posisi Anda">
+        <h2 class="text-sm font-semibold text-slate-600 mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          Posisi Anda
+        </h2>
+        <div
+          id="my-position-banner"
+          class="bg-white rounded-xl border-2 border-cyan-300 p-4"
+        >
+          <!-- Rendered by ranking.js -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-400 py-4 border-t border-slate-200">
+      © 2026 Employee Task Manager — Engineering Division
+    </footer>
+
+  </div><!-- end main-content -->
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/ranking.js"></script>
+  <script>
+    document.getElementById('current-date').textContent =
+      new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  </script>
+
+</body>
+</html>
